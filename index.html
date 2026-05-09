@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Muhammad Uzair - Full Stack Laravel Developer. Engineering dynamic, scalable, and high-performance web solutions." />
+    <meta name="keywords" content="Muhammad Uzair, Laravel Developer, PHP, MySQL, Web Development, Full Stack, Software Engineer" />
+    <meta name="author" content="Muhammad Uzair" />
+    <title>Muhammad Uzair | Web Developer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+      /* ══════════════════════════════════════════
+         GALLERY SECTION — matches your portfolio theme
+         ══════════════════════════════════════════ */
+
+      :root {
+        --g-accent: #00d4ff;
+        --g-accent2: #7b6fe8;
+        --g-accent3: #00ffcc;
+        --g-bg-card: rgba(255, 255, 255, 0.03);
+        --g-border: rgba(255, 255, 255, 0.07);
+        --g-glow: rgba(0, 212, 255, 0.15);
+      }
+
+      /* ── Section wrapper ── */
+      .gallery-section {
+        padding: 100px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .gallery-section::before {
+        content: '';
+        position: absolute;
+        top: -200px; left: 50%;
+        transform: translateX(-50%);
+        width: 900px; height: 900px;
+        background: radial-gradient(circle, rgba(0,212,255,0.05) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      /* ── Header row ── */
+      .gallery-header-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+
+      /* ── Filter tabs ── */
+      .gallery-filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .g-filter-btn {
+        background: var(--g-bg-card);
+        border: 1px solid var(--g-border);
+        color: rgba(255,255,255,0.5);
+        font-family: 'Outfit', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 10px 22px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(.23,1,.32,1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+      .g-filter-btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--g-accent), var(--g-accent2));
+        opacity: 0;
+        transition: opacity 0.35s;
+        border-radius: 50px;
+      }
+      .g-filter-btn span { position: relative; z-index: 1; }
+      .g-filter-btn.active,
+      .g-filter-btn:hover {
+        color: #fff;
+        border-color: transparent;
+        box-shadow: 0 0 20px var(--g-glow);
+      }
+      .g-filter-btn.active::before,
+      .g-filter-btn:hover::before { opacity: 1; }
+
+      /* ── Masonry grid ── */
+      .gallery-masonry {
+        columns: 3;
+        column-gap: 20px;
+      }
+      @media (max-width: 960px) { .gallery-masonry { columns: 2; } }
+      @media (max-width: 560px) { .gallery-masonry { columns: 1; } }
+
+      /* ── Gallery item card ── */
+      .g-item {
+        break-inside: avoid;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--g-bg-card);
+        border: 1px solid var(--g-border);
+        cursor: pointer;
+        transition: transform 0.45s cubic-bezier(.23,1,.32,1),
+                    box-shadow 0.45s cubic-bezier(.23,1,.32,1),
+                    border-color 0.45s;
+        backdrop-filter: blur(10px);
+      }
+      .g-item.hidden { display: none; }
+      .g-item:hover {
+        transform: translateY(-6px) scale(1.01);
+        border-color: rgba(0,212,255,0.3);
+        box-shadow:
+          0 20px 60px rgba(0,0,0,0.4),
+          0 0 0 1px rgba(0,212,255,0.1),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+
+      /* inner shine on hover */
+      .g-item::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 60%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
+        transition: left 0.6s;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .g-item:hover::before { left: 160%; }
+
+      .g-item img,
+      .g-item video {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(.23,1,.32,1);
+      }
+      .g-item:hover img,
+      .g-item:hover video { transform: scale(1.06); }
+
+      /* ── Overlay ── */
+      .g-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(10,10,30,0.92) 0%,
+          rgba(10,10,30,0.4) 45%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+        z-index: 3;
+      }
+      .g-item:hover .g-overlay { opacity: 1; }
+
+      .g-item-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 6px;
+        transform: translateY(8px);
+        transition: transform 0.4s;
+      }
+      .g-item:hover .g-item-title { transform: translateY(0); }
+
+      .g-item-cat {
+        font-family: 'Outfit', sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        background: linear-gradient(90deg, var(--g-accent), var(--g-accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        transform: translateY(8px);
+        transition: transform 0.4s 0.05s;
+      }
+      .g-item:hover .g-item-cat { transform: translateY(0); }
+
+      /* ── Video play button ── */
+      .g-play-btn {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: 60px; height: 60px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.5);
+        border: 1.5px solid rgba(0,212,255,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s, transform 0.4s;
+        z-index: 4;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 30px rgba(0,212,255,0.3);
+      }
+      .g-item:hover .g-play-btn {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      .g-play-btn i { color: var(--g-accent); font-size: 18px; margin-left: 3px; }
+
+      /* ── Video badge ── */
+      .g-type-badge {
+        position: absolute;
+        top: 14px; right: 14px;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--g-accent);
+        z-index: 4;
+      }
+
+      /* ── Placeholder card ── */
+      .g-placeholder {
+        break-inside: avoid;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        border: 1.5px dashed rgba(255,255,255,0.1);
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: rgba(255,255,255,0.25);
+        font-family: 'Outfit', sans-serif;
+        font-size: 13px;
+        text-align: center;
+        padding: 32px;
+        transition: border-color 0.3s, background 0.3s;
+        background: var(--g-bg-card);
+      }
+      .g-placeholder:hover {
+        border-color: rgba(0,212,255,0.3);
+        background: rgba(0,212,255,0.03);
+      }
+      .g-placeholder-icon {
+        width: 48px; height: 48px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(123,111,232,0.1));
+        border: 1px solid rgba(0,212,255,0.2);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px;
+      }
+
+      /* ── Stats bar under gallery ── */
+      .gallery-stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid var(--g-border);
+        flex-wrap: wrap;
+      }
+      .gallery-stat {
+        text-align: center;
+        font-family: 'Outfit', sans-serif;
+      }
+      .gallery-stat-num {
+        font-size: 36px;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--g-accent), var(--g-accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .gallery-stat-label {
+        font-size: 13px;
+        color: rgba(255,255,255,0.4);
+        margin-top: 4px;
+        letter-spacing: 0.05em;
+      }
+
+      /* ══════════════════════════════════════════
+         LIGHTBOX
+         ══════════════════════════════════════════ */
+      .g-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(5, 5, 15, 0.96);
+        backdrop-filter: blur(24px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+      }
+      .g-lightbox.open { opacity: 1; pointer-events: all; }
+
+      .g-lb-inner {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .g-lb-inner img,
+      .g-lb-inner video {
+        max-width: 88vw;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+        display: none;
+      }
+      .g-lb-caption {
+        font-family: 'Outfit', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.85);
+        text-align: center;
+      }
+      .g-lb-close {
+        position: absolute;
+        top: -52px; right: 0;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 50%;
+        width: 40px; height: 40px;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 20px;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+      }
+      .g-lb-close:hover { background: rgba(0,212,255,0.15); color: var(--g-accent); }
+
+      .g-lb-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 50%;
+        width: 44px; height: 44px;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.7);
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+      }
+      .g-lb-nav:hover { background: rgba(0,212,255,0.15); color: var(--g-accent); }
+      .g-lb-prev { left: -64px; }
+      .g-lb-next { right: -64px; }
+
+      @media (max-width: 700px) {
+        .g-lb-prev { left: -10px; }
+        .g-lb-next { right: -10px; }
+      }
+
+      /* ══════════════════════════════════════════
+         THEME UPGRADES — accent glow on existing elements
+         ══════════════════════════════════════════ */
+
+      /* Upgrade scroll progress bar to cyan gradient */
+      #scrollProgress {
+        background: linear-gradient(90deg, #00d4ff, #7b6fe8, #00ffcc) !important;
+      }
+
+      /* Nav link hover accent */
+      .nav-link:hover {
+        color: #00d4ff !important;
+      }
+
+      /* Section title underline pulse */
+      .section-title-underline {
+        background: linear-gradient(90deg, #00d4ff, #7b6fe8) !important;
+      }
+
+      /* Service cards glow tint */
+      .service-card:hover .service-glow {
+        background: radial-gradient(circle at 50% 0%, rgba(0,212,255,0.12), transparent 70%) !important;
+      }
+
+      /* Project card hover border */
+      .project-card:hover {
+        border-color: rgba(0,212,255,0.25) !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
+    </div>
+
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <div class="logo">
+            <span class="logo-text">UZAIR</span>
+          </div>
+          <ul class="nav-links">
+            <li><a href="#home"      class="nav-link">Home</a></li>
+            <li><a href="#about"     class="nav-link">About</a></li>
+            <li><a href="#services"  class="nav-link">Services</a></li>
+            <li><a href="#gallery"   class="nav-link">Portfolio</a></li>
+            <li><a href="#projects"  class="nav-link">Projects</a></li>
+            <li><a href="#contact"   class="nav-link">Contact</a></li>
+          </ul>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon sun-icon">☀️</span>
+            <span class="theme-icon moon-icon">🌙</span>
+          </button>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-particles" id="heroParticles"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="hero-name">Muhammad Uzair</span>
+            </h1>
+            <h2 class="hero-subtitle">
+              <span class="typewriter" id="typewriter"></span>
+              <span class="cursor">|</span>
+            </h2>
+            <p class="hero-tagline">Designing and developing digital experiences with creativity and precision.</p>
+            <div class="hero-cta">
+              <a href="#projects" class="btn btn-primary">
+                <span>View My Work</span>
+                <div class="btn-ripple"></div>
+              </a>
+              <a href="#contact" class="btn btn-secondary">
+                <span>Get In Touch</span>
+                <div class="btn-ripple"></div>
+              </a>
+            </div>
+          </div>
+          <div class="hero-visual" id="heroVisual">
+            <div class="hero-image-wrapper">
+              <div class="hero-glow"></div>
+              <div class="hero-image" style="background: url('uzair.jpeg') no-repeat center center/cover;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-divider wave-divider">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About Me</h2>
+          <div class="section-title-underline"></div>
+        </div>
+        <div class="about-content">
+          <div class="about-image">
+            <div class="profile-wrapper">
+              <div class="profile-glow"></div>
+              <div class="profile-photo" style="background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;"></div>
+            </div>
+          </div>
+          <div class="about-text">
+            <p class="about-bio">
+              Results-driven <strong>Full Stack Web Developer</strong> skilled in
+              <strong>HTML, CSS, JavaScript, PHP, and MySQL</strong> with experience in developing responsive websites and dynamic web applications.
+              I focus on writing clean, maintainable code and creating smooth user experiences,
+              while continuously learning modern tools and technologies to build scalable solutions.
+            </p>
+            <div class="about-stats">
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-rocket"></i></div>
+                <div class="stat-number" data-target="3">0</div>
+                <div class="stat-label">Projects Completed</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+                <div class="stat-number" data-target="1">0</div>
+                <div class="stat-label">Years Experience</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">Code Quality %</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Services</h2>
+          <div class="section-title-underline"></div>
+          <p class="section-subtitle">Robust web solutions tailored to your needs</p>
+        </div>
+        <div class="services-grid"> 
+  <div class="service-card">
+    <div class="service-icon"><i class="fa-solid fa-code"></i></div>
+    <h3 class="service-title">Website Design & Development</h3>
+    <p class="service-description">
+      Building modern, responsive, and visually engaging websites tailored for businesses, portfolios, and personal brands.
+    </p>
+    <div class="service-glow"></div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div>
+    <h3 class="service-title">Frontend Experiences</h3>
+    <p class="service-description">
+      Creating smooth, interactive, and user-friendly interfaces using HTML, CSS, JavaScript, and modern design principles.
+    </p>
+    <div class="service-glow"></div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon"><i class="fa-solid fa-globe"></i></div>
+    <h3 class="service-title">Custom Web Solutions</h3>
+    <p class="service-description">
+      Developing dynamic and functional web solutions with clean code, responsive layouts, and optimized performance.
+    </p>
+    <div class="service-glow"></div>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         VIDEOGRAPHY / PHOTOGRAPHY PORTFOLIO SECTION
+         ══════════════════════════════════════════ -->
+    <section class="gallery-section" id="gallery">
+      <div class="container">
+
+        <div class="section-header">
+          <h2 class="section-title">Videography &amp; Photography</h2>
+          <div class="section-title-underline"></div>
+          <p class="section-subtitle">Visual stories captured through the lens</p>
+        </div>
+
+        <div class="gallery-header-row">
+          <div style="font-family:'Outfit',sans-serif; color:rgba(255,255,255,0.4); font-size:25px; max-width:700px; line-height:1;">
+            <p class="section-subtitle"><b>Beyond screens and code </b>— turning ideas, visuals, and emotions into digital experiences..</p>
+          </div>
+          <div class="gallery-filters">
+            <button class="g-filter-btn active" data-filter="all"><span>All</span></button>
+            <button class="g-filter-btn" data-filter="video"><span>&#9654; Video</span></button>
+            <button class="g-filter-btn" data-filter="photo"><span>&#9678; Photo</span></button>
+          </div>
+        </div>
+
+        <div class="gallery-masonry" id="galleryMasonry">
+
+          <!--
+          ╔═══════════════════════════════════════════════════╗
+          ║  HOW TO ADD YOUR OWN CONTENT:                     ║
+          ║                                                   ║
+          ║  ── For a PHOTO ──                                ║
+          ║  <div class="g-item" data-type="photo"           ║
+          ║       data-title="Your Title"                    ║
+          ║       data-index="0">                            ║
+          ║    <img src="your-photo.jpg" alt="Your Title"/>  ║
+          ║    <span class="g-type-badge">Photo</span>       ║
+          ║    <div class="g-overlay">                       ║
+          ║      <div class="g-item-title">Title</div>       ║
+          ║      <div class="g-item-cat">Photography</div>   ║
+          ║    </div>                                        ║
+          ║  </div>                                          ║
+          ║                                                   ║
+          ║  ── For a VIDEO ──                                ║
+          ║  <div class="g-item" data-type="video"           ║
+          ║       data-title="Your Title"                    ║
+          ║       data-index="0">                            ║
+          ║    <video src="your-video.mp4"                   ║
+          ║           muted loop playsinline></video>        ║
+          ║    <span class="g-type-badge">Video</span>       ║
+          ║    <div class="g-play-btn">                      ║
+          ║      <i class="fa-solid fa-play"></i>            ║
+          ║    </div>                                        ║
+          ║    <div class="g-overlay">                       ║
+          ║      <div class="g-item-title">Title</div>       ║
+          ║      <div class="g-item-cat">Videography</div>   ║
+          ║    </div>                                        ║
+          ║  </div>                                          ║
+          ╚═══════════════════════════════════════════════════╝
+          -->
+
+          <!-- ── PHOTO 1 ── -->
+          <div class="g-item" data-type="photo" data-title="ARSALAN (PASHTO MUSICIAN)" data-index="0">
+            <img src="picture 1.PNG" alt="ARSALAN (PASHTO MUSICIAN)"/>
+            <span class="g-type-badge">Photo</span>
+            <div class="g-overlay">
+              <div class="g-item-title">ARSALAN (PASHTO MUSICIAN)</div>
+              <div class="g-item-cat">Photography</div>
+            </div>
+          </div>
+
+          <!-- ── VIDEO 1 ── -->
+          <div class="g-item" data-type="video" data-title="CULTURAL DAY Reel" data-index="1">
+            <video src="1.MP4" muted loop playsinline></video>
+            <span class="g-type-badge">Video</span>
+            <div class="g-play-btn"><i class="fa-solid fa-play"></i></div>
+            <div class="g-overlay">
+              <div class="g-item-title">CULTURAL DAY Reel</div>
+              <div class="g-item-cat">Videography</div>
+            </div>
+          </div>
+
+          <!-- ── PHOTO 2 ── -->
+          <div class="g-item" data-type="photo" data-title="CANDID PICTURES" data-index="2">
+            <img src="picture 2.PNG" alt="CANDID PICTURES"/>
+            <span class="g-type-badge">Photo</span>
+            <div class="g-overlay">
+              <div class="g-item-title">CANDID PICTURES </div>
+              <div class="g-item-cat">Photography</div>
+            </div>
+          </div>
+
+          <!-- ── PHOTO 3 ── -->
+          <div class="g-item" data-type="photo" data-title="Street Candid" data-index="3">
+            <img src="picture 4.jpeg" alt="Street Candid"/>
+            <span class="g-type-badge">Photo</span>
+            <div class="g-overlay">
+              <div class="g-item-title">Street Candid</div>
+              <div class="g-item-cat">Photography</div>
+            </div>
+          </div>
+
+          <!-- ── VIDEO 2 ── -->
+          <div class="g-item" data-type="video" data-title="LABOUR DAY" data-index="4">
+            <video src="2.MP4" muted loop playsinline></video>
+            <span class="g-type-badge">Video</span>
+            <div class="g-play-btn"><i class="fa-solid fa-play"></i></div>
+            <div class="g-overlay">
+              <div class="g-item-title">LABOUR DAY</div>
+              <div class="g-item-cat">Videography</div>
+            </div>
+          </div>
+
+          <!-- ── PHOTO 4 ── -->
+          <div class="g-item" data-type="photo" data-title="CREATIVE FOCUS SHOT" data-index="5">
+            <img src="picture 3.jpeg" alt="Product Still"/>
+            <span class="g-type-badge">Photo</span>
+            <div class="g-overlay">
+              <div class="g-item-title">CREATIVE FOCUS SHOT</div>
+              <div class="g-item-cat">Photography</div>
+            </div>
+          </div>
+
+          <!-- ── PHOTO 5 ── -->
+          <div class="g-item" data-type="photo" data-title="ARCHITECTURE" data-index="6">
+            <img src="picture 5.jpeg" alt="ARCHITECTURE"/>
+            <span class="g-type-badge">Photo</span>
+            <div class="g-overlay">
+              <div class="g-item-title">ARCHITECTURE</div>
+              <div class="g-item-cat">Photography</div>
+            </div>
+          </div>
+
+          <!-- ── VIDEO 3 ── -->
+          <div class="g-item" data-type="video" data-title="RANDOM MOMENTS" data-index="7">
+            <video src="3.MP4" muted loop playsinline></video>
+            <span class="g-type-badge">Video</span>
+            <div class="g-play-btn"><i class="fa-solid fa-play"></i></div>
+            <div class="g-overlay">
+              <div class="g-item-title">RANDOM MOMENTS</div>
+              <div class="g-item-cat">Videography</div>
+            </div>
+          </div>
+
+          <!-- ── VIDEO 4 ── -->
+          <div class="g-item" data-type="video" data-title="MICROSCOPE" data-index="8">
+            <video src="4.MP4" muted loop playsinline></video>
+            <span class="g-type-badge">Video</span>
+            <div class="g-play-btn"><i class="fa-solid fa-play"></i></div>
+            <div class="g-overlay">
+              <div class="g-item-title">MICROSCOPE</div>
+              <div class="g-item-cat">Videography</div>
+            </div>
+          </div>
+
+          <!-- 
+          ── PLACEHOLDER — replace with your real content ── 
+          <div class="g-placeholder">
+            <div class="g-placeholder-icon">＋</div>
+            <span>Add your photo or video here<br/>Replace this card with your own &lt;img&gt; or &lt;video&gt;</span>
+          </div> 
+          -->
+
+        </div><!-- /gallery-masonry -->
+
+        <!-- Stats bar -->
+        <div class="gallery-stats">
+          <div class="gallery-stat">
+            <div class="gallery-stat-num" id="photoCount">0</div>
+            <div class="gallery-stat-label">Photos</div>
+          </div>
+          <div class="gallery-stat">
+            <div class="gallery-stat-num" id="videoCount">0</div>
+            <div class="gallery-stat-label">Videos</div>
+          </div>
+          <div class="gallery-stat">
+            <div class="gallery-stat-num" id="totalCount">0</div>
+            <div class="gallery-stat-label">Total Works</div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- /gallery-section -->
+
+    <!-- ══════════════════════════════════════════
+         LIGHTBOX
+         ══════════════════════════════════════════ -->
+    <div class="g-lightbox" id="gLightbox">
+      <div class="g-lb-inner">
+        <button class="g-lb-close" id="gLbClose">&#215;</button>
+        <button class="g-lb-nav g-lb-prev" id="gLbPrev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="g-lb-nav g-lb-next" id="gLbNext"><i class="fa-solid fa-chevron-right"></i></button>
+        <img    id="gLbImg"   src="" alt="" />
+        <video  id="gLbVideo" controls></video>
+        <div class="g-lb-caption" id="gLbCaption"></div>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Projects</h2>
+          <div class="section-title-underline"></div>
+          <p class="section-subtitle">Showcasing full-stack innovation and technical excellence</p>
+        </div>
+        <div class="projects-grid">
+
+          <div class="project-card">
+            <div class="project-image project-image-4" style="background: url('hostel.png') no-repeat center center/cover;">
+              <div class="project-overlay">
+                <a href="#" class="project-link">View Project →</a>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Hostel Management System (HMS)</h3>
+              <p class="project-description">Comprehensive system for room bookings, allocations, and availability reports with real-time updates.</p>
+              <div class="project-tags">
+                <span class="tag">Laravel</span><span class="tag">Real-time</span>
+                <span class="tag">Booking Sys</span><span class="tag">Reporting</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image" style="background: url('qhelo.png') no-repeat center center/cover">
+              <div class="project-overlay">
+                <a href="https://qhelo-pakistan.axoraweb.com/public/" target="_blank" class="project-link">View Project →</a>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Qhelo Pakistan | Sports Community</h3>
+              <p class="project-description">A dynamic web solution for booking indoor courts, managing tournament schedules, and tracking player memberships.</p>
+              <div class="project-tags">
+                <span class="tag">Laravel</span><span class="tag">Scheduler</span>
+                <span class="tag">Booking Sys</span><span class="tag">MySQL</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image" style="background: url('quizwebapp.png') no-repeat center center/cover;">
+              <div class="project-overlay">
+                <a href="https://quiz.lumivonhealthcare.com/" target="_blank" class="project-link">View Project →</a>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Secure Quiz & Exam Portal</h3>
+              <p class="project-description">An advanced testing platform featuring anti-screenshot protection to prevent cheating, complete with a powerful admin dashboard for result management.</p>
+              <div class="project-tags">
+                <span class="tag">Laravel</span><span class="tag">Anti-Cheat</span>
+                <span class="tag">Security</span><span class="tag">Exam Engine</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Get In Touch</h2>
+          <div class="section-title-underline"></div>
+          <p class="section-subtitle">Let's discuss your next web project</p>
+        </div>
+        <div class="contact-content">
+          <div class="contact-form-wrapper">
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mkoyqoer" method="post">
+              <input type="hidden" name="_subject" value="New Portfolio Contact Message" />
+              <div class="form-group">
+                <input type="text" id="name" name="name" required />
+                <label for="name">Your Name</label>
+                <div class="input-border"></div>
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" name="email" required />
+                <label for="email">Your Email</label>
+                <div class="input-border"></div>
+              </div>
+              <div class="form-group">
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <label for="message">Your Message</label>
+                <div class="input-border"></div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-submit">
+                <span>Send Message</span>
+                <div class="btn-ripple"></div>
+              </button>
+            </form>
+          </div>
+          <div class="contact-info">
+            <div class="social-links">
+              <a href="https://www.instagram.com/u7a4r?igsh=MTEzZDFmY2o4NGFreg==" class="social-link" target="_blank" rel="noopener noreferrer">
+  <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm8.75 1a1.25 1.25 0 1 0 0 2.5A1.25 1.25 0 0 0 16.5 5zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+  </svg>
+  <span>Instagram</span>
+</a>
+
+<a href="https://www.linkedin.com/in/muhammad-uzair-6421b931b" class="social-link" target="_blank" rel="noopener noreferrer">
+  <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+  </svg>
+  <span>LinkedIn</span>
+</a>
+              <a href="mailto:uzaikhan18626@gmail.com" class="social-link">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
+                </svg>
+                <span>Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">
+          Copyright &copy;
+          <script>document.write(new Date().getFullYear());</script>
+          Muhammad Uzair. Crafted with passion and precision.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
+    <script src="script.js"></script>
+
+    <!-- ══════════════════════════════════════════
+         GALLERY JAVASCRIPT
+         ══════════════════════════════════════════ -->
+    <script>
+    (function () {
+      const items     = Array.from(document.querySelectorAll('.g-item'));
+      const filterBtns = document.querySelectorAll('.g-filter-btn');
+
+      // ── Count stats ──
+      const photos = items.filter(i => i.dataset.type === 'photo').length;
+      const videos = items.filter(i => i.dataset.type === 'video').length;
+      function animateCount(el, target, duration) {
+        let start = 0, step = Math.ceil(duration / target);
+        let t = setInterval(() => {
+          start++;
+          el.textContent = start;
+          if (start >= target) clearInterval(t);
+        }, step);
+      }
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCount(document.getElementById('photoCount'), photos, 600);
+            animateCount(document.getElementById('videoCount'), videos, 600);
+            animateCount(document.getElementById('totalCount'), photos + videos, 600);
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      const statsEl = document.querySelector('.gallery-stats');
+      if (statsEl) obs.observe(statsEl);
+
+      // ── Video hover play ──
+      items.forEach(item => {
+        const vid = item.querySelector('video');
+        if (!vid) return;
+        item.addEventListener('mouseenter', () => vid.play().catch(() => {}));
+        item.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+      });
+
+      // ── Filter ──
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const f = btn.dataset.filter;
+          items.forEach(item => {
+            item.classList.toggle('hidden', f !== 'all' && item.dataset.type !== f);
+          });
+        });
+      });
+
+      // ── Lightbox ──
+      const lb       = document.getElementById('gLightbox');
+      const lbImg    = document.getElementById('gLbImg');
+      const lbVideo  = document.getElementById('gLbVideo');
+      const lbCaption= document.getElementById('gLbCaption');
+      const lbClose  = document.getElementById('gLbClose');
+      const lbPrev   = document.getElementById('gLbPrev');
+      const lbNext   = document.getElementById('gLbNext');
+
+      let current = 0;
+      const visibleItems = () => items.filter(i => !i.classList.contains('hidden'));
+
+      function openItem(index) {
+        const visible = visibleItems();
+        if (!visible.length) return;
+        current = ((index % visible.length) + visible.length) % visible.length;
+        const item  = visible[current];
+        const type  = item.dataset.type;
+        const title = item.dataset.title || '';
+        lbCaption.textContent = title;
+
+        lbImg.style.display   = 'none';
+        lbVideo.style.display = 'none';
+        lbVideo.pause();
+
+        if (type === 'photo') {
+          lbImg.src = item.querySelector('img').src;
+          lbImg.style.display = 'block';
+        } else {
+          lbVideo.src = item.querySelector('video').src;
+          lbVideo.style.display = 'block';
+          lbVideo.play().catch(() => {});
+        }
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLb() {
+        lb.classList.remove('open');
+        lbVideo.pause(); lbVideo.src = ''; lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+
+      items.forEach((item, i) => {
+        item.addEventListener('click', () => {
+          const vis = visibleItems();
+          openItem(vis.indexOf(item));
+        });
+      });
+
+      lbClose.addEventListener('click', closeLb);
+      lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+      lbPrev.addEventListener('click', () => openItem(current - 1));
+      lbNext.addEventListener('click', () => openItem(current + 1));
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape')     closeLb();
+        if (e.key === 'ArrowLeft')  openItem(current - 1);
+        if (e.key === 'ArrowRight') openItem(current + 1);
+      });
+    })();
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,460 @@
+/* ===================================
+   CUSTOMIZATION TEMPLATE
+   Copy the sections you want to customize
+   =================================== */
+
+/* ===================================
+   1. CHANGE BRAND COLORS
+   =================================== */
+
+/* Replace these in styles.css at the top */
+:root {
+    /* Your Brand Colors */
+    --primary-color: #4285f4;
+    /* Main brand color - used for buttons, links */
+    --secondary-color: #34a853;
+    /* Secondary accent - success states */
+    --accent-color: #fbbc04;
+    /* Highlight color - warnings, highlights */
+    --error-color: #ea4335;
+    /* Error states */
+
+    /* Custom Gradients - Create your own! */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+/* Popular Color Schemes You Can Use:
+
+   BLUE TECH:
+   --primary-color: #0066ff;
+   --gradient-primary: linear-gradient(135deg, #0066ff 0%, #00ccff 100%);
+   
+   PURPLE CREATIVE:
+   --primary-color: #8b5cf6;
+   --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+   
+   GREEN NATURE:
+   --primary-color: #10b981;
+   --gradient-primary: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+   
+   ORANGE ENERGY:
+   --primary-color: #f97316;
+   --gradient-primary: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+   
+   PINK MODERN:
+   --primary-color: #ec4899;
+   --gradient-primary: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+*/
+
+/* ===================================
+   2. CHANGE FONTS
+   =================================== */
+
+/* Step 1: Add Google Font link in index.html <head>:
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+*/
+
+/* Step 2: Update CSS variables in styles.css: */
+:root {
+    --font-primary: 'Poppins', sans-serif;
+    /* Body text */
+    --font-secondary: 'Montserrat', sans-serif;
+    /* Headings */
+}
+
+/* Popular Font Combinations:
+
+   MODERN & CLEAN:
+   Primary: 'Inter', sans-serif
+   Secondary: 'Outfit', sans-serif
+   
+   PROFESSIONAL:
+   Primary: 'Roboto', sans-serif
+   Secondary: 'Montserrat', sans-serif
+   
+   ELEGANT:
+   Primary: 'Lato', sans-serif
+   Secondary: 'Playfair Display', serif
+   
+   TECH/STARTUP:
+   Primary: 'Work Sans', sans-serif
+   Secondary: 'Space Grotesk', sans-serif
+   
+   CREATIVE:
+   Primary: 'Poppins', sans-serif
+   Secondary: 'Raleway', sans-serif
+*/
+
+/* ===================================
+   3. ADJUST ANIMATION SPEEDS
+   =================================== */
+
+:root {
+    /* Make animations faster */
+    --transition-fast: 0.1s ease;
+    --transition-base: 0.15s ease;
+    --transition-slow: 0.25s ease;
+
+    /* OR make animations slower/smoother */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.35s ease;
+    --transition-slow: 0.6s ease;
+}
+
+/* Disable all animations (for accessibility): */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ===================================
+   4. CUSTOMIZE SPACING
+   =================================== */
+
+:root {
+    /* Tighter spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+
+    /* OR more generous spacing */
+    --spacing-xs: 0.75rem;
+    --spacing-sm: 1.5rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 6rem;
+}
+
+/* ===================================
+   5. MODIFY BORDER RADIUS
+   =================================== */
+
+:root {
+    /* Sharp/Modern look */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+
+    /* OR Soft/Friendly look */
+    --radius-sm: 0.75rem;
+    --radius-md: 1.5rem;
+    --radius-lg: 2rem;
+
+    /* OR No rounded corners */
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+}
+
+/* ===================================
+   6. CHANGE PARTICLE COUNT
+   =================================== */
+
+/* In script.js, find initializeParticles() and change: */
+const particleCount=100; // More particles (may impact performance)
+const particleCount=25; // Fewer particles (better performance)
+const particleCount=0; // Disable particles
+
+/* ===================================
+   7. CUSTOMIZE TYPEWRITER EFFECT
+   =================================== */
+
+/* In script.js, find initializeTypewriter() and update: */
+const texts=[ 'Your Custom Title',
+'Another Professional Title',
+'Third Rotating Phrase',
+'Add As Many As You Want'
+];
+
+/* Adjust typing speed: */
+typingSpeed=50; // Faster typing
+typingSpeed=150; // Slower typing
+
+/* ===================================
+   8. MODIFY COUNTER VALUES
+   =================================== */
+
+/* In index.html, find stat-number elements and change data-target: */
+<div class="stat-number" data-target="100">0</div>< !-- Your number -->
+/* ===================================
+   9. CHANGE PROJECT CARD COLORS
+   =================================== */
+
+/* In styles.css, find .project-image classes and update: */
+.project-image {
+    background: linear-gradient(135deg, #your-color-1 0%, #your-color-2 100%);
+}
+
+.project-image-2 {
+    background: linear-gradient(135deg, #your-color-1 0%, #your-color-2 100%);
+}
+
+.project-image-3 {
+    background: linear-gradient(135deg, #your-color-1 0%, #your-color-2 100%);
+}
+
+/* Beautiful gradient combinations:
+   Sunset: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%)
+   Ocean: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+   Forest: linear-gradient(135deg, #134e5e 0%, #71b280 100%)
+   Fire: linear-gradient(135deg, #f12711 0%, #f5af19 100%)
+   Purple: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)
+*/
+
+/* ===================================
+   10. ADD YOUR PROFILE PHOTO
+   =================================== */
+
+/* In styles.css, replace .profile-photo background: */
+.profile-photo {
+    background-image: url('images/profile.jpg');
+    background-size: cover;
+    background-position: center;
+    /* Remove the gradient background */
+}
+
+/* In styles.css, replace .hero-image background: */
+.hero-image {
+    background-image: url('images/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    /* Keep the animation if you want */
+}
+
+/* ===================================
+   11. CUSTOMIZE DARK MODE COLORS
+   =================================== */
+
+[data-theme="dark"] {
+    /* Darker backgrounds */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #141414;
+    --bg-tertiary: #1f1f1f;
+
+    /* OR Lighter dark mode */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #3a3a3a;
+
+    /* Adjust text colors */
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+}
+
+/* ===================================
+   12. DISABLE SPECIFIC ANIMATIONS
+   =================================== */
+
+/* Disable floating shapes */
+.floating-shapes {
+    display: none;
+}
+
+/* Disable particles */
+.hero-particles {
+    display: none;
+}
+
+/* Disable morphing hero image */
+.hero-image {
+    animation: none;
+    border-radius: 50%;
+}
+
+/* Disable 3D tilt on service cards */
+.service-card:hover {
+    transform: translateY(-10px);
+    /* Only move up, no rotation */
+}
+
+/* ===================================
+   13. CHANGE NAVBAR BEHAVIOR
+   =================================== */
+
+/* Always solid navbar (no transparency) */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+}
+
+/* OR Always transparent navbar */
+.navbar {
+    background: transparent;
+}
+
+/* Hide scroll progress bar */
+.scroll-progress {
+    display: none;
+}
+
+/* ===================================
+   14. MODIFY BUTTON STYLES
+   =================================== */
+
+/* Larger buttons */
+.btn {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.125rem;
+}
+
+/* Smaller buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+}
+
+/* Square buttons (no rounded corners) */
+.btn {
+    border-radius: 0;
+}
+
+/* Pill-shaped buttons */
+.btn {
+    border-radius: 9999px;
+}
+
+/* ===================================
+   15. ADJUST SECTION PADDING
+   =================================== */
+
+/* More compact sections */
+.hero,
+.about,
+.services,
+.projects,
+.contact {
+    padding: 3rem 0;
+}
+
+/* More spacious sections */
+.hero,
+.about,
+.services,
+.projects,
+.contact {
+    padding: 8rem 0;
+}
+
+/* ===================================
+   16. CHANGE FORM STYLING
+   =================================== */
+
+/* Filled input style */
+.form-group input,
+.form-group textarea {
+    background: var(--bg-tertiary);
+    border: none;
+}
+
+/* Outlined input style */
+.form-group input,
+.form-group textarea {
+    background: transparent;
+    border: 2px solid var(--border-color);
+}
+
+/* ===================================
+   17. CUSTOMIZE SOCIAL ICONS
+   =================================== */
+
+/* Circular social icons */
+.social-link {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    justify-content: center;
+}
+
+/* Icon-only (hide text) */
+.social-link span {
+    display: none;
+}
+
+/* ===================================
+   18. MODIFY GRID LAYOUTS
+   =================================== */
+
+/* 2 columns for services */
+.services-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 2 columns for projects */
+.projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 4 columns for projects (desktop) */
+.projects-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* ===================================
+   19. ADD CUSTOM CURSOR
+   =================================== */
+
+body {
+    cursor: url('images/cursor.png'), auto;
+}
+
+a,
+button {
+    cursor: url('images/cursor-pointer.png'), pointer;
+}
+
+/* ===================================
+   20. CHANGE PRELOADER
+   =================================== */
+
+/* Simple fade preloader */
+.preloader-spinner {
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+}
+
+.preloader-spinner::before {
+    content: '⚡';
+}
+
+/* Disable preloader */
+.preloader {
+    display: none;
+}
+
+/* ===================================
+   QUICK COLOR PALETTE GENERATOR
+   =================================== */
+
+/* Use these tools to generate color schemes:
+   - coolors.co
+   - colorhunt.co
+   - mycolor.space
+   - uigradients.com (for gradients)
+*/
+
+/* ===================================
+   TESTING CHECKLIST
+   =================================== */
+
+/*
+   After customization, test:
+   ✓ Desktop view (1920px, 1440px, 1024px)
+   ✓ Tablet view (768px)
+   ✓ Mobile view (375px, 414px)
+   ✓ Light theme
+   ✓ Dark theme
+   ✓ All animations
+   ✓ All links
+   ✓ Form submission
+   ✓ Mobile menu
+   ✓ Cross-browser (Chrome, Firefox, Safari, Edge)
+*/
