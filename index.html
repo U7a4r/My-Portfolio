@@ -411,6 +411,24 @@
       .project-card:hover {
         border-color: rgba(0,212,255,0.25) !important;
       }
+      .navbar {
+  position: fixed;
+  z-index: 100000 !important;
+}
+
+.nav-links a {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 100001 !important;
+}
+
+.floating-shapes,
+.hero-particles,
+.hero-glow,
+.shape,
+.section-divider {
+  pointer-events: none !important;
+}
     </style>
   </head>
 
