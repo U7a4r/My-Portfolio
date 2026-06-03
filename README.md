@@ -1,4 +1,4 @@
-# Muhammad Suleman - Personal Portfolio
+# Muhammad Uzair - Personal Portfolio
 
 A world-class, animation-heavy, fully responsive personal portfolio website built with **pure HTML, CSS, and JavaScript** (no frameworks, no libraries). This portfolio reflects Google-level UI/UX quality, motion design, and professionalism.
 
@@ -303,8 +303,8 @@ This portfolio template is free to use for personal and commercial projects.
 
 ##  Author
 
-**Muhammad Suleman**
-- Software Engineer | Full Stack Laravel Developer
+**Muhammad Uzair**
+- Software Engineer | Full Stack Web Developer
 - Specializing on Backend & Frontend
 ##  Acknowledgments
 
