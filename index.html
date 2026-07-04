@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Muhammad Uzair - Full Stack Web Developer. Engineering dynamic, scalable, and high-performance web solutions." />
-    <meta name="keywords" content="Muhammad Uzair, Web Developer, PHP, MySQL, Web Development, Full Stack, Software Engineer" />
+    <meta name="description" content="Muhammad Uzair - Full Stack Laravel Developer. Engineering dynamic, scalable, and high-performance web solutions." />
+    <meta name="keywords" content="Muhammad Uzair, Laravel Developer, PHP, MySQL, Web Development, Full Stack, Software Engineer" />
     <meta name="author" content="Muhammad Uzair" />
     <title>Muhammad Uzair | Web Developer</title>
     <link rel="stylesheet" href="styles.css" />
@@ -429,6 +429,295 @@
 .section-divider {
   pointer-events: none !important;
 }
+
+      /* ══════════════════════════════════════════
+         HERO / PROFILE IMAGE — MOBILE VISIBILITY FIX
+         Forces the hero photo (and about photo) to render
+         on small screens, overriding any external CSS in
+         styles.css that may be hiding/zeroing them out.
+         ══════════════════════════════════════════ */
+      .hero-visual,
+      .hero-image-wrapper,
+      .profile-wrapper {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      .hero-image,
+      .profile-photo {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        width: 100%;
+        min-width: 220px;
+        min-height: 220px;
+      }
+      @media (max-width: 768px) {
+        .hero-content {
+          display: flex;
+          flex-direction: column-reverse;
+          align-items: center;
+          text-align: center;
+        }
+        .hero-visual {
+          width: 100%;
+          max-width: 280px;
+          margin: 0 auto 32px;
+        }
+        .hero-image-wrapper {
+          width: 100%;
+          aspect-ratio: 1 / 1;
+        }
+        .hero-image {
+          width: 100% !important;
+          height: 100% !important;
+          border-radius: 50%;
+          margin: 0 auto;
+        }
+        .profile-wrapper {
+          width: 220px;
+          height: 220px;
+          margin: 0 auto 24px;
+        }
+        .profile-photo {
+          width: 220px !important;
+          height: 220px !important;
+          border-radius: 50%;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero-visual { max-width: 220px; }
+        .profile-wrapper, .profile-photo { width: 180px !important; height: 180px !important; }
+      }
+
+      /* ══════════════════════════════════════════
+         ABOUT SECTION — redesign with timeline + effects
+         ══════════════════════════════════════════ */
+      .about-bio {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: aboutFadeUp 0.8s ease forwards;
+      }
+      .about-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 26px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: aboutFadeUp 0.8s ease 0.15s forwards;
+      }
+      .about-badge-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0,212,255,0.06);
+        border: 1px solid rgba(0,212,255,0.25);
+        color: #00d4ff;
+        font-family: 'Outfit', sans-serif;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 7px 16px;
+        border-radius: 50px;
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+      }
+      .about-badge-pill:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,212,255,0.15);
+        background: rgba(0,212,255,0.12);
+      }
+      .about-badge-pill.violet {
+        color: #7b6fe8;
+        border-color: rgba(123,111,232,0.3);
+        background: rgba(123,111,232,0.06);
+      }
+      .about-badge-pill.violet:hover {
+        box-shadow: 0 8px 20px rgba(123,111,232,0.15);
+        background: rgba(123,111,232,0.12);
+      }
+
+      @keyframes aboutFadeUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── FIX: give the profile photo a real, visible box on ALL
+         screen sizes (previously only mobile media queries had a
+         width/height, so on desktop the wrapper collapsed to 0
+         height and the image never appeared). ── */
+      .profile-wrapper {
+        width: 260px;
+        height: 260px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .profile-photo{
+        width:100%;
+        height:100%;
+        border-radius:50%;
+        overflow:hidden;
+      }
+
+      .profile-photo img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      }
+
+
+     /* ── Education timeline (Horizontal) ── */
+.edu-timeline{
+    margin-top:30px;
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    position:relative;
+    opacity:0;
+    transform:translateY(20px);
+    animation:aboutFadeUp .8s ease .3s forwards;
+}
+
+/* Horizontal line */
+.edu-timeline::before{
+    content:'';
+    position:absolute;
+    left:6%;
+    right:6%;
+    top:10px;
+    height:2px;
+    background:linear-gradient(90deg,#00d4ff,#7b6fe8,transparent);
+}
+
+.edu-item{
+    flex:1;
+    position:relative;
+    padding-top:32px;
+    text-align:center;
+    opacity:0;
+    transform:translateY(16px);
+    transition:transform .4s ease, opacity .4s ease;
+}
+
+.edu-item.in-view{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Timeline Dot */
+.edu-item::before{
+    content:'';
+    position:absolute;
+    top:3px;
+    left:50%;
+    transform:translateX(-50%);
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#0a0a1e;
+    border:2px solid #00d4ff;
+    box-shadow:0 0 12px rgba(0,212,255,.5);
+    transition:.3s;
+    z-index:2;
+}
+
+.edu-item:hover::before{
+    transform:translateX(-50%) scale(1.25);
+}
+
+.edu-item-stage{
+    font-family:'Outfit',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    background:linear-gradient(90deg,#00d4ff,#7b6fe8);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:8px;
+}
+
+.edu-item-school{
+    font-family:'Outfit',sans-serif;
+    font-size:16px;
+    font-weight:600;
+    color:#fff;
+    margin-bottom:4px;
+    line-height:1.4;
+}
+
+.edu-item-note{
+    font-size:13px;
+    color:rgba(255,255,255,.45);
+}
+
+/* Mobile */
+@media (max-width:768px){
+    .edu-timeline{
+        flex-direction:column;
+        gap:30px;
+        padding-left:28px;
+    }
+
+    .edu-timeline::before{
+        left:8px;
+        top:6px;
+        bottom:6px;
+        width:2px;
+        height:auto;
+        right:auto;
+        background:linear-gradient(180deg,#00d4ff,#7b6fe8,transparent);
+    }
+
+    .edu-item{
+        text-align:left;
+        padding:0 0 0 24px;
+    }
+
+    .edu-item::before{
+        left:-20px;
+        top:4px;
+        transform:none;
+    }
+
+    .edu-item:hover::before{
+        transform:scale(1.25);
+    }
+}
+      /* ── Fresh graduate ribbon on stat card ── */
+      .fresh-grad-ribbon {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(123,111,232,0.12));
+        border: 1px solid rgba(0,212,255,0.3);
+        border-radius: 50px;
+        padding: 6px 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #00ffcc;
+        letter-spacing: 0.05em;
+        margin-bottom: 16px;
+        animation: pulseGlow 2.4s ease-in-out infinite;
+      }
+      @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 0px rgba(0,255,204,0); }
+        50% { box-shadow: 0 0 16px rgba(0,255,204,0.25); }
+      }
+
+      .about-stats .stat-card {
+        transition: transform 0.35s cubic-bezier(.23,1,.32,1), box-shadow 0.35s;
+      }
+      .about-stats .stat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(0,212,255,0.12);
+      }
     </style>
   </head>
 
@@ -527,7 +816,7 @@
       </div>
     </section>
 
-    <!-- About Section -->
+ <!-- About Section -->
     <section class="about" id="about">
       <div class="container">
         <div class="section-header">
@@ -538,26 +827,56 @@
           <div class="about-image">
             <div class="profile-wrapper">
               <div class="profile-glow"></div>
-              <div class="profile-photo" style="background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;"></div>
+              <div class="profile-photo">
+    <img src="aboutpic.jpeg" alt="Muhammad Uzair"
+         onerror="this.onerror=null; this.parentElement.innerHTML='<div style=&quot;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#1a1a2e;color:#00d4ff;font-family:Outfit,sans-serif;font-size:12px;text-align:center;padding:10px;border-radius:50%;&quot;>Image not found:<br>About.png</div>';">
+</div>
             </div>
           </div>
           <div class="about-text">
+
+            <div class="fresh-grad-ribbon">
+              <i class="fa-solid fa-graduation-cap"></i>
+              Fresh Graduate — Ready to Build
+            </div>
+
             <p class="about-bio">
-              Results-driven <strong>Full Stack Web Developer</strong> skilled in
-              <strong>HTML, CSS, JavaScript, PHP, and MySQL</strong> with experience in developing responsive websites and dynamic web applications.
-              I focus on writing clean, maintainable code and creating smooth user experiences,
-              while continuously learning modern tools and technologies to build scalable solutions.
+              I'm <strong>Muhammad Uzair</strong>, a <strong>Fresh Graduate Full Stack Web Developer</strong>
+              skilled in <strong>HTML, CSS, JavaScript, PHP, and MySQL</strong>, with hands-on
+              experience developing responsive websites and dynamic web applications. I recently completed my
+              <strong>BS in Software Engineering with a 3.3 GPA</strong>, applying my academic knowledge to build
+              real-world projects, including booking systems and secure examination portals.
+
+              I successfully completed a <strong>Government of Pakistan-certified Full Stack Web Development Training</strong>
+              under the <strong>National Vocational and Technical Training Commission (NAVTTC)</strong>, where I gained
+              practical experience in modern web development technologies and industry-standard development practices.
+              Additionally, I completed a <strong>4-year paid Media Internship</strong> at my university, where I worked
+              on videography, photography, event coverage, digital content creation, and promotional media, strengthening
+              my creativity, communication, and teamwork skills.
+
+              I am passionate about writing clean, maintainable code, building user-friendly and scalable web applications,
+              and continuously expanding my technical expertise to deliver high-quality digital solutions.
             </p>
+
+            <div class="about-badges">
+              <span class="about-badge-pill"><i class="fa-brands fa-html5"></i> HTML</span>
+              <span class="about-badge-pill violet"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+              <span class="about-badge-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+              <span class="about-badge-pill violet"><i class="fa-brands fa-php"></i> PHP</span>
+              <span class="about-badge-pill"><i class="fa-solid fa-database"></i> MySQL</span>
+            </div>
+
             <div class="about-stats">
               <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-rocket"></i></div>
                 <div class="stat-number" data-target="3">0</div>
                 <div class="stat-label">Projects Completed</div>
               </div>
+
               <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+                <div class="stat-icon"><i class="fa-solid fa-briefcase"></i></div>
                 <div class="stat-number" data-target="1">0</div>
-                <div class="stat-label">Years Experience</div>
+                <div class="stat-label">Year Experience</div>
               </div>
               <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
@@ -565,6 +884,36 @@
                 <div class="stat-label">Code Quality %</div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Educational Background</h2>
+          <div class="section-title-underline"></div>
+        </div>
+
+        <div class="edu-timeline">
+          <div class="edu-item">
+            <div class="edu-item-stage">School</div>
+            <div class="edu-item-school">Peshawar Model School</div>
+            <div class="edu-item-note">Science</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-item-stage">College</div>
+            <div class="edu-item-school">Peshawar Model Degree College</div>
+            <div class="edu-item-note">Pre-Engineering</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-item-stage">Bachelors</div>
+            <div class="edu-item-school">City University of Science &amp; Information Technology</div>
+            <div class="edu-item-note">BS Software Engineering</div>
           </div>
         </div>
       </div>
@@ -633,40 +982,6 @@
         </div>
 
         <div class="gallery-masonry" id="galleryMasonry">
-
-          <!--
-          ╔═══════════════════════════════════════════════════╗
-          ║  HOW TO ADD YOUR OWN CONTENT:                     ║
-          ║                                                   ║
-          ║  ── For a PHOTO ──                                ║
-          ║  <div class="g-item" data-type="photo"           ║
-          ║       data-title="Your Title"                    ║
-          ║       data-index="0">                            ║
-          ║    <img src="your-photo.jpg" alt="Your Title"/>  ║
-          ║    <span class="g-type-badge">Photo</span>       ║
-          ║    <div class="g-overlay">                       ║
-          ║      <div class="g-item-title">Title</div>       ║
-          ║      <div class="g-item-cat">Photography</div>   ║
-          ║    </div>                                        ║
-          ║  </div>                                          ║
-          ║                                                   ║
-          ║  ── For a VIDEO ──                                ║
-          ║  <div class="g-item" data-type="video"           ║
-          ║       data-title="Your Title"                    ║
-          ║       data-index="0">                            ║
-          ║    <video src="your-video.mp4"                   ║
-          ║           muted loop playsinline></video>        ║
-          ║    <span class="g-type-badge">Video</span>       ║
-          ║    <div class="g-play-btn">                      ║
-          ║      <i class="fa-solid fa-play"></i>            ║
-          ║    </div>                                        ║
-          ║    <div class="g-overlay">                       ║
-          ║      <div class="g-item-title">Title</div>       ║
-          ║      <div class="g-item-cat">Videography</div>   ║
-          ║    </div>                                        ║
-          ║  </div>                                          ║
-          ╚═══════════════════════════════════════════════════╝
-          -->
 
           <!-- ── PHOTO 1 ── -->
           <div class="g-item" data-type="photo" data-title="ARSALAN (PASHTO MUSICIAN)" data-index="0">
@@ -762,14 +1077,6 @@
             </div>
           </div>
 
-          <!-- 
-          ── PLACEHOLDER — replace with your real content ── 
-          <div class="g-placeholder">
-            <div class="g-placeholder-icon">＋</div>
-            <span>Add your photo or video here<br/>Replace this card with your own &lt;img&gt; or &lt;video&gt;</span>
-          </div> 
-          -->
-
         </div><!-- /gallery-masonry -->
 
         <!-- Stats bar -->
@@ -825,7 +1132,7 @@
               <h3 class="project-title">Hostel Management System (HMS)</h3>
               <p class="project-description">Comprehensive system for room bookings, allocations, and availability reports with real-time updates.</p>
               <div class="project-tags">
-                <span class="tag">Web</span><span class="tag">Real-time</span>
+                <span class="tag">Laravel</span><span class="tag">Real-time</span>
                 <span class="tag">Booking Sys</span><span class="tag">Reporting</span>
               </div>
             </div>
@@ -841,7 +1148,7 @@
               <h3 class="project-title">Qhelo Pakistan | Sports Community</h3>
               <p class="project-description">A dynamic web solution for booking indoor courts, managing tournament schedules, and tracking player memberships.</p>
               <div class="project-tags">
-                <span class="tag">Web</span><span class="tag">Scheduler</span>
+                <span class="tag">Laravel</span><span class="tag">Scheduler</span>
                 <span class="tag">Booking Sys</span><span class="tag">MySQL</span>
               </div>
             </div>
@@ -857,7 +1164,7 @@
               <h3 class="project-title">Secure Quiz & Exam Portal</h3>
               <p class="project-description">An advanced testing platform featuring anti-screenshot protection to prevent cheating, complete with a powerful admin dashboard for result management.</p>
               <div class="project-tags">
-                <span class="tag">Web</span><span class="tag">Anti-Cheat</span>
+                <span class="tag">Laravel</span><span class="tag">Anti-Cheat</span>
                 <span class="tag">Security</span><span class="tag">Exam Engine</span>
               </div>
             </div>
@@ -1059,6 +1366,55 @@
         if (e.key === 'ArrowLeft')  openItem(current - 1);
         if (e.key === 'ArrowRight') openItem(current + 1);
       });
+    })();
+    </script>
+
+    <!-- ══════════════════════════════════════════
+         IMAGE DEBUG HELPER — checks hero image loads,
+         shows a visible on-page warning (not just console)
+         if a file is missing. Safe to delete once images
+         are confirmed working.
+         ══════════════════════════════════════════ -->
+    <script>
+    (function () {
+      function checkImage(url, label, targetEl) {
+        const img = new Image();
+        img.onload = function () {};
+        img.onerror = function () {
+          const warn = document.createElement('div');
+          warn.textContent = '⚠ Missing file: ' + url + ' (' + label + ')';
+          warn.style.cssText = 'position:relative;background:#ff4444;color:#fff;font-family:Outfit,sans-serif;font-size:12px;padding:8px 12px;text-align:center;z-index:5;border-radius:8px;margin-top:8px;';
+          if (targetEl) targetEl.appendChild(warn);
+        };
+        img.src = url;
+      }
+      const heroImageEl = document.querySelector('.hero-image');
+      if (heroImageEl) {
+        const bg = getComputedStyle(heroImageEl).backgroundImage;
+        const match = bg.match(/url\(["']?(.*?)["']?\)/);
+        if (match && match[1]) {
+          checkImage(match[1], 'hero image', heroImageEl.closest('.hero-visual'));
+        }
+      }
+    })();
+    </script>
+
+    <!-- ══════════════════════════════════════════
+         ABOUT SECTION — reveal-on-scroll for timeline
+         ══════════════════════════════════════════ -->
+    <script>
+    (function () {
+      const eduItems = document.querySelectorAll('.edu-item');
+      if (!eduItems.length) return;
+      const eduObs = new IntersectionObserver(entries => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('in-view'), i * 120);
+            eduObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      eduItems.forEach(item => eduObs.observe(item));
     })();
     </script>
 
